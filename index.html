@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Blackjack Game</title>
+</head>
+
+<body>
+    <div class="container">
+        <div id="start-page">
+            <div class="instructions">
+                <h2>Instructions</h2>
+                <p>"Get a hand value close to 21 <b style="color: var(--secondary); font-weight: 600;">without exceeding
+                        it</b>. Start with two cards, choose to "hit" for more
+                    or "stand" to keep. The <b style="color: #3eba3e; font-weight: 600;">closest to 21</b> or if the
+                    dealer exceeds 21 wins."</p>
+            </div>
+            <button class="start-btn">START GAME</button>
+        </div>
+
+        <div class="game">
+            <div class="header">
+                <h1>Blackjack. <span>Game</span></h1>
+                <img src="./assets/logo.png" alt="">
+            </div>
+            <div class="board">
+                <div class="dealer">
+                    <h2></h2>
+                    <div id="dealer-cards">
+                        <img class="hidden-card" src="./poker-deck/bgRed.svg" alt="Hidden card">
+                    </div>
+                </div>
+
+                <div class="you">
+                    <h2></h2>
+                    <div id="your-cards"></div>
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="hit">HIT</button>
+                <button id="stay">STAY</button>
+            </div>
+
+            <!-- End game -->
+            <div id="end-game">
+                <h2>You Lose!!</h2>
+                <div>
+                </div>
+                <button id="restart-btn">PLAY AGAIN</button>
+                <div class="emoji">
+                    <img src="./assets/lose.svg" alt="Emojis">
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy;2023 Created and developed by Jose M Rangel. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>

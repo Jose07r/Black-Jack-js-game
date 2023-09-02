@@ -1,0 +1,323 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Ysabeau+SC:wght@500;600&display=swap');
+
+:root {
+    --primary: #0e4f19;
+    --secondary: #f0c814;
+}
+
+body {
+    display: grid;
+    grid-template-rows: 1fr 50px;
+    position: relative;
+    background-image: radial-gradient(#045f56 1.5px, transparent 1.5px), radial-gradient(#045f56 1.5px, transparent 1.5px);
+    background-size: 5px 5px;
+    background-position: 0 0, 2.5px 2.5px;
+    background-color: var(--primary);
+    width: 100%;
+    height: 100%;
+}
+
+/* Start interface */
+#start-page {
+    display: flex;
+    opacity: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #1d281ded;
+    transition: opacity .6s ease;
+}
+
+#start-page.hide {
+    opacity: 0;
+
+}
+
+#start-page.hide {
+    pointer-events: none;
+}
+
+.instructions {
+    position: relative;
+    background-color: #1d281dce;
+    text-align: justify;
+    font-family: 'Ysabeau SC', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.8rem);
+    color: #ffffffc9;
+    width: clamp(260px, 90vw, 500px);
+    margin: 2em 0;
+    padding: 1em;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    z-index: 10;
+}
+
+.instructions h2 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Game styles */
+.game {
+    width: 100%;
+    height: 100vh;
+    padding: 15px;
+}
+
+.header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: max-content;
+    z-index: 10;
+}
+
+h1 {
+    position: relative;
+    font-family: 'Ysabeau SC', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    margin-right: 8px;
+    text-align: center;
+    color: var(--secondary);
+}
+
+h1 span {
+    color: #fff;
+}
+
+.header img {
+    width: 40px;
+    height: 45px;
+    position: relative;
+    transform: rotate(20deg);
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: auto;
+    margin-bottom: 1em;
+    width: 90%;
+    height: 75%;
+}
+
+.dealer {
+    margin-bottom: 1em;
+}
+
+.board div h2 {
+    font-family: 'Ysabeau SC', sans-serif;
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.board div img {
+    width: clamp(80px, 15vw, 150px);
+    margin: 0 5px;
+}
+
+.buttons {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    width: clamp(250px, 50vw, 800px);
+}
+
+button {
+    cursor: pointer;
+    display: block;
+    border: none;
+    outline: none;
+    padding: 8px 0;
+    width: clamp(100px, 15vw, 400px);
+    height: max-content;
+    font-family: 'Heebo', sans-serif;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+    font-weight: 600;
+    color: var(--primary);
+    background-color: var(--secondary);
+    border-radius: 3px;
+    box-shadow: inset 4px -4px 8px #a38500;
+    transition: outline .1s ease-in;
+}
+
+#start-page button,
+#end-game button {
+    position: relative;
+    color: #1d281ded;
+    width: clamp(150px, 20vw, 400px);
+    z-index: 10;
+}
+
+button:hover {
+    outline: 3px solid #ffffff6d;
+}
+
+/* End game results */
+#end-game {
+    display: none;
+    opacity: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    padding: 10% 0 1.5em 0;
+    background: #1d281dd7;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    transition: opacity 1s 1s ease-out;
+}
+
+#end-game.results {
+    opacity: 1;
+}
+
+#end-game h2 {
+    font-family: 'Heebo', sans-serif;
+    color: #ffffffe1;
+    font-size: clamp(2rem, 10vw, 4rem);
+    margin-bottom: 1em;
+    letter-spacing: 2px;
+}
+
+#end-game button {
+    margin-bottom: 1.5em;
+}
+
+.emoji {
+    width: clamp(30px, 10vw, 50px);
+}
+
+.emoji img {
+    width: 100%;
+    transform: scale(1);
+}
+
+.blackjack {
+    position: relative;
+    margin-bottom: 4em;
+    padding: 2rem;
+}
+
+.blackjack img {
+    position: relative;
+    width: clamp(200px, 30vw, 350px);
+    z-index: 10;
+}
+
+.blackjack::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 5px solid #04d627;
+    filter: blur(20px);
+    top: 0;
+    left: 0;
+}
+
+#end-game.results .emoji img {
+    animation: zoom 1.2s ease-in infinite alternate;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+
+    to {
+        transform: scale(1.2) rotate(7deg);
+    }
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    font-family: sans-serif;
+    font-size: clamp(.8rem, 1.2vw, 1rem);
+    color: #ffffff30;
+    z-index: 10;
+}
+
+/* Media Queries */
+@media screen and (max-height: 450px) and (orientation: landscape) {
+    body::before {
+        background-size: contain;
+    }
+
+    h1 {
+        font-size: clamp(1.5rem, 3vw, 3rem);
+    }
+
+    .board {
+        height: 60%;
+    }
+
+    .board div img {
+        width: clamp(80px, 10vw, 100px);
+    }
+
+    .blackjack {
+        margin-bottom: 1em;
+    }
+
+    .blackjack img {
+        position: relative;
+        width: clamp(200px, 20vw, 350px);
+        z-index: 10;
+    }
+}
+
+@media screen and (min-width: 710px) and (orientation: landscape) {
+    body::before {
+        content: '';
+        background-image: url('./assets/start-game-bg.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: invert(0%) opacity(.2);
+        position: absolute;
+        max-width: 1500px;
+        width: 95%;
+        height: 80%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -10;
+    }
+
+    .instructions {
+        width: clamp(260px, 80vw, 700px);
+        ;
+    }
+
+    .board {
+        flex-direction: row;
+        height: 65%;
+    }
+
+    .dealer {
+        margin-bottom: 0;
+    }
+}

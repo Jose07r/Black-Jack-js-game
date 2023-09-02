@@ -1,0 +1,22 @@
+{
+  "name": "blackjack",
+  "version": "1.0.0",
+  "description": "BlackJack Casino Game built with HTML, CSS and Javascript.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jose07r/Black-Jack.git"
+  },
+  "author": "Jose Miguel Rangel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jose07r/Black-Jack/issues"
+  },
+  "homepage": "https://github.com/Jose07r/Black-Jack#readme",
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  }
+}
