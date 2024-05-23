@@ -23,12 +23,7 @@ let hidden;
 let deck = [];
 let isAlive = false;
 
-const endGame = document.getElementById('end-game');
-const title = document.querySelector('#end-game h2');
-const blackJackDiv = document.querySelector('#end-game div:first-of-type');
-const emoji = document.querySelector('.emoji img');
-
-// Display all the 52 cards of our deck
+// Create cards name and push them into the deck array
 function buildDeck() {
   let values = [
     'A',
@@ -78,19 +73,19 @@ function startGame() {
   document.querySelector('.dealer h2').textContent = 'Dealer: ';
 
   // Dealer cards generator
-  while (dealerSum < 14) {
+  while (dealerSum < 16) {
     let cardImg = document.createElement('img');
     let card = deck.pop();
     cardImg.src = './poker-deck/' + card + '.svg';
     dealerSum += getValue(card);
     dealerAceCount += checkAce(card);
-    dealerSum = reduceAce(dealerSum, dealerAceCount)[0];
+    [dealerSum, dealerAceCount] = reduceAce(dealerSum, dealerAceCount);
     dealerCards.appendChild(cardImg);
   }
 
   // To show no more than 2 cards in the screen
-  for (var i = 2; i < dealerCards.children.length; i++) {
-    var hiddenCards = dealerCards.children[i];
+  for (let i = 2; i < dealerCards.children.length; i++) {
+    let hiddenCards = dealerCards.children[i];
     hiddenCards.style.display = 'none';
   }
 
@@ -104,14 +99,12 @@ function startGame() {
     document.getElementById('your-cards').appendChild(cardImg);
   }
 
-  yourSum = reduceAce(yourSum, yourAceCount)[0];
-  yourAceCount = reduceAce(yourSum, yourAceCount)[1];
-
-  if (yourSum == 21 && dealerSum !== 21) {
+  if (yourSum === 21 && dealerSum !== 21) {
+    isAlive = false;
     blackJack();
     showDealerCards();
     document.querySelector('.dealer h2').textContent = 'Dealer: ' + dealerSum;
-  } else if (yourSum == 21 && dealerSum == 21) {
+  } else if (yourSum === 21 && dealerSum === 21) {
     tie();
     showDealerCards();
     document.querySelector('.dealer h2').textContent = 'Dealer: ' + dealerSum;
@@ -133,8 +126,7 @@ function hit() {
     document.getElementById('your-cards').appendChild(cardImg);
   }
 
-  yourSum = reduceAce(yourSum, yourAceCount)[0];
-  yourAceCount = reduceAce(yourSum, yourAceCount)[1];
+  [yourSum, yourAceCount] = reduceAce(yourSum, yourAceCount);
 
   document.querySelector('.you h2').textContent = 'You: ' + yourSum;
   hitEvaluate();
@@ -153,7 +145,7 @@ function stay() {
     showResults();
   } else if (yourSum > dealerSum || dealerSum > 21) {
     win();
-  } else if (yourSum == dealerSum) {
+  } else if (yourSum === dealerSum) {
     tie();
   }
 }
@@ -182,9 +174,9 @@ function checkAce(card) {
 function reduceAce(playerSum, playerAceCount) {
   if (playerSum > 21 && playerAceCount > 0) {
     playerSum -= 10;
-    yourAceCount -= 1;
+    playerAceCount -= 1;
   }
-  return [playerSum, yourAceCount];
+  return [playerSum, playerAceCount];
 }
 
 function hitEvaluate() {
@@ -193,12 +185,12 @@ function hitEvaluate() {
     showDealerCards();
     document.querySelector('.dealer h2').textContent = 'Dealer: ' + dealerSum;
     showResults();
-  } else if (yourSum == 21 && dealerSum == 21) {
+  } else if (yourSum === 21 && dealerSum === 21) {
     isAlive = false;
     tie();
     showDealerCards();
     document.querySelector('.dealer h2').textContent = 'Dealer: ' + dealerSum;
-  } else if (yourSum == 21 && dealerSum !== 21) {
+  } else if (yourSum === 21 && dealerSum !== 21) {
     isAlive = false;
     blackJack();
     showDealerCards();
@@ -209,8 +201,8 @@ function hitEvaluate() {
 function showDealerCards() {
   let dealerCards = document.getElementById('dealer-cards');
   for (var i = 2; i < dealerCards.children.length; i++) {
-    var hiddenCards = dealerCards.children[i];
-    hiddenCards.style.display = 'inline-block';
+    var hiddenCard = dealerCards.children[i];
+    hiddenCard.style.display = 'inline-block';
   }
 
   document.querySelector('.hidden-card').src =
@@ -218,15 +210,19 @@ function showDealerCards() {
 }
 
 // Result message interface
+const endGame = document.getElementById('end-game');
+const resultText = document.querySelector('#end-game h2');
+const blackJackDiv = document.querySelector('#end-game div:first-of-type');
+const emoji = document.querySelector('.emoji img');
 
 function win() {
-  title.textContent = 'You Win!!';
+  resultText.textContent = 'You Win!!';
   emoji.src = './assets/win.svg';
   showResults();
 }
 
 function tie() {
-  title.textContent = 'Tie!!';
+  resultText.textContent = 'Tie!!';
   emoji.src = './assets/tie.svg';
   showResults();
 }
@@ -238,8 +234,8 @@ function blackJack() {
   image.src = './assets/blackjack.svg';
   blackJackDiv.appendChild(image);
 
-  title.textContent = 'You Win!!';
-  title.style.cssText =
+  resultText.textContent = 'You Win!!';
+  resultText.style.cssText =
     'font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0;';
 
   emoji.src = './assets/win.svg';
@@ -259,12 +255,10 @@ const restartBtn = document.getElementById('restart-btn');
 
 restartBtn.addEventListener('click', () => {
   endGame.style.display = 'none';
-  setTimeout(() => {
-    endGame.classList.remove('results');
-  }, 1);
+  endGame.classList.remove('results');
 
-  title.textContent = 'You Lose!!';
-  title.style.cssText = 'font-size: clamp(2rem, 10vw, 4rem)';
+  resultText.textContent = 'You Lose!!';
+  resultText.style.cssText = 'font-size: clamp(2rem, 10vw, 4rem)';
   blackJackDiv.innerHTML = '';
   blackJackDiv.classList.remove('blackjack');
 
